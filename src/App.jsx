@@ -4,6 +4,7 @@
 // import { Loader } from 'components/Loader/Loader';
 import { Car } from 'components/Car/Car';
 import carsJson from '../src/cars';
+import { Modal } from 'components/Modal/Modal';
 
 const cars = carsJson;
 // const HomePage = lazy(() => import('pages/HomePage/HomePage'));
@@ -16,21 +17,24 @@ const cars = carsJson;
 export const App = () => {
   console.log(cars);
   return (
-    <ul>
-      {cars.map(car => {
-        return (
-          <Car
-            key={car.id}
-            model={car.model}
-            make={car.make}
-            year={car.year}
-            img={car.img}
-            price={car.rentalPrice}
-            favourite={false}
-          />
-        );
-      })}
-    </ul>
+    <div>
+      <ul>
+        {cars.map(car => {
+          return (
+            <Car
+              key={car.id}
+              model={car.model}
+              make={car.make}
+              year={car.year}
+              img={car.img}
+              price={car.rentalPrice}
+              favourite={false}
+            />
+          );
+        })}
+      </ul>
+      <Modal />
+    </div>
     // <Suspense fallback={<Loader />}>
     //   <Routes>
     //     <Route path="/" element={<SharedLayout />}>
