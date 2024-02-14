@@ -1,0 +1,15 @@
+.iconHeart {
+  path {
+    stroke: #ffffff;
+  }
+  &.favourite {
+    path {
+      stroke: #3470ff;
+      fill: #3470ff;
+    }
+  }
+}
+.img {
+  width: 274px;
+  height: 268px;
+}
