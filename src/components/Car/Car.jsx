@@ -1,7 +1,7 @@
 import React from 'react';
 
 import css from './Car.module.css';
-import { ReactComponent as IconHeart } from '../../assets/images/heart.svg';
+import { ReactComponent as IconHeart } from '../../../assets/heart.svg';
 
 export const Car = ({ year, make, model, price, favourite, img, id }) => {
   return (
