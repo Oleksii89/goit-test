@@ -1,39 +1,44 @@
-import { Component } from 'react';
 import {
   StyledCloseBtn,
   StyledModal,
   StyledOverlayForModal,
 } from './Modal.styled';
 
-export class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.onKeydown);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.onKeydown);
-  }
+import { ReactComponent as IconModalCloseBtn } from '../../assets/modal-close-btn.svg';
 
-  onKeydown = event => {
-    if (event.code === 'Escape') {
-      this.props.onCloseModal();
-    }
-  };
+import { useEffect } from 'react';
 
-  onOverlayClick = event => {
+const Modal = ({ onCloseModal, data }) => {
+  useEffect(() => {
+    const onKeydown = event => {
+      if (event.code === 'Escape') {
+        onCloseModal();
+      }
+    };
+    window.addEventListener('keydown', onKeydown);
+
+    return () => {
+      window.removeEventListener('keydown', onKeydown);
+    };
+  }, [onCloseModal]);
+
+  const onOverlayClick = event => {
     if (event.currentTarget === event.target) {
-      this.props.onCloseModal();
+      onCloseModal();
     }
   };
 
-  render() {
-    // const { img, tags } = this.props.data;
-    return (
-      <StyledOverlayForModal onClick={this.onOverlayClick}>
-        <StyledModal>
-          {/* <img src={} alt={} /> */}
-          <StyledCloseBtn>&times;</StyledCloseBtn>
-        </StyledModal>
-      </StyledOverlayForModal>
-    );
-  }
-}
+  // const {} = data;
+
+  return (
+    <StyledOverlayForModal onClick={onOverlayClick}>
+      <StyledModal>
+        <StyledCloseBtn onClick={onCloseModal}>
+          <IconModalCloseBtn />
+        </StyledCloseBtn>
+      </StyledModal>
+    </StyledOverlayForModal>
+  );
+};
+
+export default Modal;

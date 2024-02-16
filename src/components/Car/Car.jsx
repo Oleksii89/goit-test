@@ -1,56 +1,92 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-// import css from './Car.module.css';
 import { ReactComponent as IconHeart } from '../../assets/heart.svg';
+import { ReactComponent as IconActiveHeart } from '../../assets/active-heart.svg';
+
 import {
   StyledButton,
-  StyledCarCard,
   StyledDescription,
+  StyledIconBtn,
   StyledImg,
   StyledLiCar,
   StyledTitle,
-  StyledWrapper,
-  StyledWrapperText,
+  SyledCarType,
 } from './Car.styled';
 
-export const Car = ({
+const Car = ({
   id,
   year,
   make,
   model,
   rentalPrice,
   img,
-  description,
-  fuelConsumption,
-  engineSize,
-  accessories,
   functionalities,
   rentalCompany,
   address,
-  rentalConditions,
-  mileage,
+  type,
 }) => {
+  const [favourite, setFavourite] = useState(false);
+
+  const handelToggleFavourite = () => {
+    setFavourite(!favourite);
+  };
+
+  const addressPart = address.split(', ');
+  const carLevel = rentalCompany.split(' ');
+  const typeCar = type.toLowerCase();
+  const additionalFunctions = functionalities[0].split(' ').slice(0, 2);
+
   return (
     <StyledLiCar>
-      <StyledCarCard>
-        <StyledWrapper>
-          <StyledImg src={img} alt={model} />
-          <button>
-            <IconHeart />
-          </button>
-        </StyledWrapper>
-        <StyledWrapperText>
+      <div>
+        <StyledImg src={img} alt={model} />
+        <StyledIconBtn onClick={() => handelToggleFavourite()}>
+          {favourite === false && <IconHeart />}
+          {favourite === true && <IconActiveHeart />}
+        </StyledIconBtn>
+
+        <div>
           <StyledTitle>
-            {make} {model}, {year} {rentalPrice}
+            <h3>
+              {make} {model && <span>{model}</span>}, {year}
+            </h3>
+            <p>{rentalPrice}</p>
           </StyledTitle>
           <StyledDescription>
-            {description} {fuelConsumption} {engineSize} {accessories}
-            {functionalities} {rentalCompany} {address} {rentalConditions}
-            {mileage}
+            <ul>
+              <li>
+                <p>{addressPart[1]}</p>
+              </li>
+              <li>
+                <p>{addressPart[2]}</p>
+              </li>
+              <li>
+                <p>{rentalCompany}</p>
+              </li>
+              <li>
+                <p>{carLevel[0]}</p>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <SyledCarType>{typeCar}</SyledCarType>
+              </li>
+              <li>
+                <p>{model}</p>
+              </li>
+              <li>
+                <p>{id}</p>
+              </li>
+              <li>
+                <p>{additionalFunctions.join(' ')}</p>
+              </li>
+            </ul>
           </StyledDescription>
-          <StyledButton>Learn more</StyledButton>
-        </StyledWrapperText>
-      </StyledCarCard>
+        </div>
+      </div>
+      <StyledButton>Learn more</StyledButton>
     </StyledLiCar>
   );
 };
+
+export default Car;
