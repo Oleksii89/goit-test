@@ -91,6 +91,10 @@ export const StyledButton = styled.button`
   width: 274px;
   padding: 12px 0;
   text-align: center;
+
+  &:hover {
+    background-color: var(--secondary-color-blue);
+  }
 `;
 
 export const SyledCarType = styled.p`
