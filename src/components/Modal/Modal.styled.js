@@ -22,12 +22,15 @@ export const StyledOverlayForModal = styled.div`
 `;
 
 export const StyledModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   position: absolute;
   width: 541px;
   height: 752px;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 430px;
+  transform: translate(-50%, 0) scale(1);
   padding: 40px;
 
   background-color: var(--primary-color-white);
@@ -73,10 +76,20 @@ export const StyledConditionsList = styled.ul`
       font-size: 12px;
       line-height: 1.5;
 
-      && span {
+      > span {
         font-weight: 600;
-        color: var(--prim-accent-color);
+        color: var(--primary-color-blue);
       }
     }
   }
+`;
+
+export const StyledImgModal = styled.img`
+  width: 461px;
+  height: 248px;
+  background-image: url(https://t3.ftcdn.net/jpg/01/23/52/24/360_F_123522471_XZe5ebqil1DFJRgOUJ6taDP4DnmHjtL7.jpg);
+
+  object-fit: cover;
+  object-position: center;
+  border-radius: 14px;
 `;

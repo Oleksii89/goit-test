@@ -5,6 +5,8 @@ export const StyledHeader = styled.header`
 
   && nav {
     display: flex;
+    justify-content: center;
+    width: 100%;
   }
 
   && container {

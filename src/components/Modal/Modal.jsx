@@ -1,6 +1,7 @@
 import {
   StyledCloseBtn,
   StyledConditionsList,
+  StyledImgModal,
   StyledModal,
   StyledModalSmallDescription,
   StyledOverlayForModal,
@@ -17,7 +18,6 @@ import { setIsOpenModal } from '../../redux/slice/isOpenModalSlice';
 import {
   StyledCarType,
   StyledDescription,
-  StyledImg,
   StyledTitle,
 } from 'components/Car/Car.styled';
 import Button from 'components/Button/Button';
@@ -75,41 +75,40 @@ export const Modal = () => {
     <StyledOverlayForModal>
       <StyledWrappedModal onClick={onOverlayClick}>
         <StyledModal>
-          <StyledImg src={img} alt={make} width={461} height={248} />
-          <div className="text-info">
-            <StyledTitle>
-              <h2>
-                {make} {model && <span>{model}</span>}, {year}
-              </h2>
-            </StyledTitle>
-            <StyledDescription>
-              <ul>
-                <li>
-                  <p>{addressParts[1]}</p>
-                </li>
-                <li>
-                  <p>{addressParts[2]}</p>
-                </li>
-                <li>
-                  <p>Id: {id}</p>
-                </li>
-                <li>
-                  <p>Year: {year}</p>
-                </li>
-                <li>
-                  <StyledCarType>Type: {typeCar}</StyledCarType>
-                </li>
-              </ul>
-              <ul>
-                <li>
-                  <p>Fuel Consumption: {fuelConsumption}</p>
-                </li>
-                <li>
-                  <p>Engine Size: {engineSize}</p>
-                </li>
-              </ul>
-            </StyledDescription>
-          </div>
+          <StyledImgModal src={img} alt={make} />
+          <StyledTitle>
+            <h2>
+              {make} {model && <span>{model}</span>}, {year}
+            </h2>
+          </StyledTitle>
+          <StyledDescription>
+            <ul>
+              <li>
+                <p>{addressParts[1]}</p>
+              </li>
+              <li>
+                <p>{addressParts[2]}</p>
+              </li>
+              <li>
+                <p>Id: {id}</p>
+              </li>
+              <li>
+                <p>Year: {year}</p>
+              </li>
+              <li>
+                <StyledCarType>Type: {typeCar}</StyledCarType>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <p>Fuel Consumption: {fuelConsumption}</p>
+              </li>
+              <li>
+                <p>Engine Size: {engineSize}</p>
+              </li>
+            </ul>
+          </StyledDescription>
+
           <StyledModalSmallDescription>
             {description}
           </StyledModalSmallDescription>

@@ -13,7 +13,6 @@ export const StyledRentListCards = styled.ul`
   row-gap: 50px;
   column-gap: 29px;
   align-items: center;
-  margin-top: 50px;
 
   @media (min-width: 780px) {
     flex-direction: row;
