@@ -1,35 +1,60 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFavourites } from '../../redux/cars.selectors';
+
+import {
+  addToFavourites,
+  removeFromFavourites,
+} from '../../redux/cars/carsSlice';
 
 import { ReactComponent as IconHeart } from '../../assets/heart.svg';
 import { ReactComponent as IconActiveHeart } from '../../assets/active-heart.svg';
 
 import {
-  StyledButton,
   StyledDescription,
   StyledIconBtn,
   StyledImg,
   StyledLiCar,
   StyledTitle,
-  SyledCarType,
+  StyledCarType,
 } from './Car.styled';
+import Button from 'components/Button/Button';
 
-const Car = ({
-  id,
-  year,
-  make,
-  model,
-  rentalPrice,
-  img,
-  functionalities,
-  rentalCompany,
-  address,
-  type,
-}) => {
-  const [favourite, setFavourite] = useState(false);
+export const Car = ({ car }) => {
+  const dispatch = useDispatch();
+  const favourites = useSelector(selectFavourites);
+  const [isFavourite, setIsFavourite] = useState(false);
 
-  const handelToggleFavourite = () => {
-    setFavourite(!favourite);
+  const handleToggleFavourite = () => {
+    if (!isFavourite) {
+      dispatch(addToFavourites(car));
+      setIsFavourite(true);
+    } else {
+      dispatch(removeFromFavourites(id));
+      setIsFavourite(false);
+    }
   };
+
+  const {
+    make,
+    year,
+    model,
+    type,
+    img,
+    functionalities,
+    rentalCompany,
+    address,
+    rentalPrice,
+    id,
+  } = car;
+
+  useEffect(() => {
+    if (favourites !== null) {
+      const carIsFavourite = favourites.some(e => e.id === id);
+
+      setIsFavourite(carIsFavourite);
+    }
+  }, [favourites, id]);
 
   const addressPart = address.split(', ');
   const carLevel = rentalCompany.split(' ');
@@ -40,9 +65,9 @@ const Car = ({
     <StyledLiCar>
       <div>
         <StyledImg src={img} alt={model} />
-        <StyledIconBtn onClick={() => handelToggleFavourite()}>
-          {favourite === false && <IconHeart />}
-          {favourite === true && <IconActiveHeart />}
+        <StyledIconBtn onClick={handleToggleFavourite}>
+          {!isFavourite && <IconHeart />}
+          {isFavourite && <IconActiveHeart />}
         </StyledIconBtn>
 
         <div>
@@ -69,7 +94,7 @@ const Car = ({
             </ul>
             <ul>
               <li>
-                <SyledCarType>{typeCar}</SyledCarType>
+                <StyledCarType>{typeCar}</StyledCarType>
               </li>
               <li>
                 <p>{model}</p>
@@ -84,9 +109,7 @@ const Car = ({
           </StyledDescription>
         </div>
       </div>
-      <StyledButton>Learn more</StyledButton>
+      <Button text="Learn more" car={car} />
     </StyledLiCar>
   );
 };
-
-export default Car;

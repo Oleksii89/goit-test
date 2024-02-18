@@ -1,49 +1,40 @@
-// import { Suspense, lazy } from 'react';
-// import { Route, Routes } from 'react-router-dom';
-// import SharedLayout from './components/SharedLayout/SharedLayout';
-// import { Loader } from 'components/Loader/Loader';
-import CarList from 'components/CarList/CarList';
-import { Container } from 'components/Container/Container';
-// import Modal from 'components/Modal/Modal';
+import { Suspense, lazy, useEffect } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectIsLoading, selectIsOpenModal } from 'redux/cars.selectors';
+import { Modal } from 'components/Modal/Modal';
+import { Loader } from 'components/Loader/Loader';
 
-// import { useState } from 'react';
-//
-// const HomePage = lazy(() => import('pages/HomePage/HomePage'));
-// const MovieDetailsPage = lazy(() =>
-//   import('pages/MovieDetailsPage/MovieDetailsPage')
-// );
+const SharedLayout = lazy(() =>
+  import('./components/SharedLayout/SharedLayout')
+);
+const HomePage = lazy(() => import('./pages/HomePage'));
+const RentPage = lazy(() => import('./pages/RentPage'));
+const FavouritePage = lazy(() => import('./pages/FavouritePage'));
 
-// const MoviesPage = lazy(() => import('pages/MoviesPage/MoviesPage'));
-
-export const App = () => {
-  // const [modal, setModal] = useState({ isOpen: false });
-
-  // const onOpenModal = () => {
-  //   setModal({
-  //     isOpen: true,
-  //   });
-  // };
-  // const onCloseModal = () => {
-  //   setModal({
-  //     isOpen: false,
-  //   });
-  // };
+function App() {
+  const isOpenModal = useSelector(selectIsOpenModal);
+  const isLoading = useSelector(selectIsLoading);
+  useEffect(() => {
+    document.body.style.overflow = isOpenModal ? 'hidden' : '';
+  }, [isOpenModal]);
 
   return (
-    <Container>
-      <CarList />
-      {/* <Modal /> */}
-    </Container>
-    // <Suspense fallback={<Loader />}>
-    //   <Routes>
-    //     <Route path="/" element={<SharedLayout />}>
-    //       <Route index element={<HomePage />} />
-    //       <Route path="/movies" element={<MoviesPage />} />
-    //       <Route path="/movies/:movieId/*" element={<MovieDetailsPage />} />
-
-    //       <Route path="*" element={<HomePage />} />
-    //     </Route>
-    //   </Routes>
-    // </Suspense>
+    <>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="/catalog" element={<RentPage />} />
+            <Route path="/favourites" element={<FavouritePage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
+        </Routes>
+      </Suspense>
+      {isOpenModal && <Modal />}
+      {isLoading && <Loader />}
+    </>
   );
-};
+}
+
+export default App;

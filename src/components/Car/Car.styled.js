@@ -36,7 +36,7 @@ export const StyledTitle = styled.div`
   line-height: 1.5;
 
   && span {
-    font-family: Inter;
+    font-family: 'Inter';
     color: var(--primary-color-blue);
   }
 `;
@@ -77,26 +77,6 @@ export const StyledDescription = styled.div`
   }
 `;
 
-export const StyledButton = styled.button`
-  text-align: center;
-  color: var(--primary-color-white);
-  background-color: var(--primary-color-blue);
-  border-radius: 12px;
-  height: 44px;
-  border: 0px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.43;
-  /* margin-top: 28px; */
-  width: 274px;
-  padding: 12px 0;
-  text-align: center;
-
-  &:hover {
-    background-color: var(--secondary-color-blue);
-  }
-`;
-
-export const SyledCarType = styled.p`
+export const StyledCarType = styled.p`
   text-transform: capitalize;
 `;

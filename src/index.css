@@ -1,4 +1,12 @@
-@import-normalize; /* bring in normalize.css styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+}
 
 h1,
 h2,
@@ -19,6 +27,7 @@ ul {
 a {
   color: currentColor;
   text-decoration: none;
+  cursor: pointer;
 }
 
 button {
@@ -32,11 +41,11 @@ img {
   height: auto;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+::placeholder {
+  color: unset;
+}
 
 :root {
-  font-family: 'Manrope', sans-serif;
-
   --primary-color-black: #121417;
   --primary-color-white: #ffffff;
   --primary-color-blue: #3470ff;

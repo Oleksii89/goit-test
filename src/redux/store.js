@@ -1,11 +1,43 @@
-import { devToolsEnhancer } from '@redux-devtools/extension';
-import { createStore, combineReducers } from 'redux';
-import { movieListReducer } from './movieListReducer';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { carsReducer } from './cars/carsSlice';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+
+import storage from 'redux-persist/lib/storage';
+import { isOpenModalReducer } from './slice/isOpenModalSlice';
+import { carInfoReducer } from './slice/carInfoSlice';
+import { nextPageReducer } from './slice/nextApiPageSlice';
+
+const carsConfig = {
+  key: 'cars',
+  storage,
+  whitelist: ['favourites'],
+};
 
 const rootReducer = combineReducers({
-  movieList: movieListReducer,
+  cars: persistReducer(carsConfig, carsReducer),
+  isOpenModal: isOpenModalReducer,
+  carInfo: carInfoReducer,
+  nextPage: nextPageReducer,
 });
 
-const enhancer = devToolsEnhancer();
+export const store = configureStore({
+  reducer: rootReducer,
 
-export const store = createStore(rootReducer, enhancer);
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export const persistor = persistStore(store);
